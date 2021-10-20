@@ -34,15 +34,28 @@ const askForQuestions = [
 
 const createQuiz = title =>
   prompt(askForQuestions)
-    .then(answer =>
-      // TODO
-      console.log(answer)
-    )
+    .then(answer => createPrompt(answer))
+    .then(promptArray => prompt(promptArray))
+    .then(answer => createQuestions(answer))
+    .then(quiz => writeFile(title, JSON.stringify(quiz)))
+    .then(() => console.log('Quiz created successfully.'))
     .catch(err => console.log('Error creating the quiz.', err))
 
-// const takeQuiz = (title, output) => TODO
+const takeQuiz = (title, output) => 
+  readFile(title)
+    .then(quizData => JSON.parse(quizData))
+    .then(quiz => prompt(quiz))
+    .then(answers => writeFile(output, JSON.stringify(answers)))
+    .catch(err => console.log('Error taking the quiz', err))
 
-// const takeRandomQuiz = (quizzes, output, n) => TODO
+const takeRandomQuiz = (quizzes, output, n) =>
+  Promise.all(quizzes.map(quizName => readFile(quizName)))
+    .then(quizDataArray => quizDataArray.flatMap(quizData => JSON.parse(quizData)))
+    .then(questions => chooseRandom(questions, n))
+    .then(randomQuestions => prompt(randomQuestions))
+    .then(answer => writeFile(output, JSON.stringify(answer)))
+    .then(() => console.log('Random quiz answers saved successfully.'))
+    .catch(err => console.log('Error creating the random quiz.', err))
 
 cli
   .command(
@@ -59,7 +72,7 @@ cli
     'Loads a quiz and saves the users answers to the given outputFile'
   )
   .action(function (input, callback) {
-    // TODO implement functionality for taking a quiz
+    return takeQuiz(input.fileName, input.outputFile)
   })
 
 cli
@@ -70,7 +83,7 @@ cli
       ' Then, saves the users answers to the given outputFile'
   )
   .action(function (input, callback) {
-    // TODO implement the functionality for taking a random quiz
+    return takeRandomQuiz(input.fileNames, input.outputFile, Math.floor(Math.random() * 5))
   })
 
 cli.delimiter(cli.chalk['yellow']('quizler>')).show()
