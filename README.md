@@ -1,16 +1,15 @@
 # JS Assignment Quizler
 ---
-In this assignment students are tasked with building a command line application
+In this assignment students are tasked with creating a custom library for a command line application
 which builds quizzes and allows the user to take quizzes they have built or pull
 random questions from multiple quizzes and take a random quiz.
 
-Students will use [inquirer.js](https://github.com/SBoudrias/Inquirer.js/)
-and [vorpal.js](https://github.com/dthree/vorpal/wiki) to build their
-command line tool. The documentation for each will be very useful for students when
-completing this assignment. A skeleton which sets ups a command line
-interface for the students is provided.
+The command line application is built using [inquirer.js](https://github.com/SBoudrias/Inquirer.js/)
+and [vorpal.js](https://github.com/dthree/vorpal/wiki). The documentation for each may of interest to students when
+completing this assignment, however a full implementation of the command line
+interface has been provided.
 
-To implement this command line application students will need to create a few helper functions in their lib.js file. There are three methods specifically required by the tests which are detailed below.
+To finish fully implementing this command line application students will need to create a few helper functions in their lib.js file. There are three methods specifically required by the tests which are detailed below.
 
 **First**, students need to implement the ```chooseRandom``` function. This function takes an ```array``` and the number of random items to choose from the array (```numItems```). It should return a new array containing the correct number of randomly selected, unique items from the original array. Students must export their ```createRandom``` function from the lib.js file in order to run the included test cases.
 
@@ -18,7 +17,7 @@ To implement this command line application students will need to create a few he
 
 **Third**, students will add ```createQuestions```, which takes an object which has question numbers and choices as keys and returns an array of question objects which each contain a question and its corresponding choices. The object parameter should default to an empty object. The format of the array of questions objects is detailed in the CreateQuestion Format section below.
 
-**Finally**, after passing all tests, students will utilize their code in lib.js to fully implement their application in index.js.
+**Finally**, students will test their code in lib.js using ```npm test``` and ensure all tests for chooseRandom, createPrompt, and createQuestions pass successfully.
 
 ## Goal
 ---
@@ -48,11 +47,6 @@ build an application.
 - [ ] Implement ```createPrompt``` using the given format below and the given test cases
 - [ ] Implement the ```createQuestions``` function based on the format below and provided tests
 - [ ] Ensure all tests for createPrompt & createQuestions are passing when you run the ```npm test``` command
-
-## Final Tasks
----
-- [ ] Using your functions and inquirer.js, implement the ```createQuiz```, ```takeQuiz```, and ```takeRandomQuiz``` functions
-- [ ] Using the functions you've created, implement the functionality for each command in your vorpal.js command line interface application
 
 ### CreatePrompt Format
 
