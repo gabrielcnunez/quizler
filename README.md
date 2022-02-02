@@ -31,7 +31,7 @@ build an application.
 ## ChooseRandom Tasks
 ---
 - [ ] Implement ```chooseRandom``` function
-- [ ] Should take 2 parameters, ```array``` and ```number```
+- [ ] Should take 2 parameters, ```array``` and ```numItems```
 - [ ] ```array``` should default to an empty array
 - [ ] If ```array``` has length 0 or 1, then simply return it
 - [ ] ```numItems``` must be checked to ensure it is a number in the range 1 to ```array.length``` (inclusive)
