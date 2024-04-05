@@ -13,7 +13,7 @@ describe('chooseRandom', () => {
     jsv.assertForall('array nat', arr => {
       const arrBefore = arr
       chooseRandom(arr)
-      return arrBefore === arr
+      return arrBefore.length === arr.length && arrBefore.every((val, index) => val === arr[index])
     })
   })
   it('Should return an array of the given numItems length (if provided)', () => {
@@ -22,14 +22,19 @@ describe('chooseRandom', () => {
         // Here the numItems value given to chooseRandom is irrelevent as
         // an array of length 0 or 1 should just return the given array
         // with no possibility of randomization.
-        return (
-          arr === chooseRandom(arr, 948672894968) &&
-          arr === chooseRandom(arr, 0) &&
-          arr === chooseRandom(arr)
-        )
+        const test1 = chooseRandom(arr, 948672894968)
+        const test2 = chooseRandom(arr, 0)
+        const test3 = chooseRandom(arr)
+        return (arr.length === test1.length) && (arr.length === test2.length) && (arr.length === test3.length) && (arr.every((val, index) => val === test1[index] && val === test2[index] && val === test3[index]))
       }
       const random = chooseRandom(arr, 2)
       return random.length === 2
+    })
+  })
+  it('Should randomize the array', () => {
+    jsv.assertForall('array nat', arr => {
+      const random = chooseRandom(arr)
+      return random.length !== arr || !arr.every((val, index) => val === random[index])
     })
   })
 })
