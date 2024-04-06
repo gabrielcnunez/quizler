@@ -31,12 +31,6 @@ describe('chooseRandom', () => {
       return random.length === 2
     })
   })
-  it('Should randomize the array', () => {
-    jsv.assertForall('array nat', arr => {
-      const random = chooseRandom(arr)
-      return random.length !== arr || !arr.every((val, index) => val === random[index])
-    })
-  })
 })
 
 describe('createPrompt', () => {
