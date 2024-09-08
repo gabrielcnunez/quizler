@@ -1,0 +1,29 @@
+name: Autograding Tests
+'on':
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Quizler Tests
+      id: quizler-tests
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Quizler Tests
+        setup-command: npm install
+        command: npm test
+        timeout: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        QUIZLER-TESTS_RESULTS: "${{steps.quizler-tests.outputs.result}}"
+      with:
+        runners: quizler-tests
