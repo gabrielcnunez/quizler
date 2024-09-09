@@ -7,9 +7,15 @@ export const chooseRandom = (array = [], numItems) => {
   if (!numItems || numItems < 1 || numItems > array.length) {
     numItems = Math.floor(Math.random() * array.length + 1)
   }
+  const usedIndices = new Set();
 
   return [...Array(numItems)].map(() => {
-    const randomInd = Math.floor(Math.random() * array.length)
+    let randomInd
+    do {
+      randomInd = Math.floor(Math.random() * array.length)
+    } while (usedIndices.has(randomInd))
+    usedIndices.add(randomInd)
+
     return array[randomInd]
   })
 }
