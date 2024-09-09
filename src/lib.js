@@ -1,7 +1,17 @@
 import fs from 'fs'
 
-export const chooseRandom = () => {
-  // TODO implement chooseRandom
+export const chooseRandom = (array = [], numItems) => {
+  if (array.length <= 1) {
+    return array
+  }
+  if (!numItems || numItems < 1 || numItems > array.length) {
+    numItems = Math.floor(Math.random() * array.length + 1)
+  }
+
+  return [...Array(numItems)].map(() => {
+    const randomInd = Math.floor(Math.random() * array.length)
+    return array[randomInd]
+  })
 }
 
 export const createPrompt = () => {
