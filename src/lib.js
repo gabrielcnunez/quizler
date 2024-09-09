@@ -42,8 +42,30 @@ export const createPrompt = ({ numQuestions = 1, numChoices = 2 } = {}) => {
   return prompts;
 }
 
-export const createQuestions = () => {
-  // TODO implement createQuestions
+export const createQuestions = (questions = {}) => {
+  const questionKeys = Object.keys(questions).filter((key) =>
+    key.startsWith('question')
+  );
+  const groupedQuestions = {};
+
+  questionKeys.forEach((key) => {
+    const [question, num, choice] = key.split('-');
+
+    if (!groupedQuestions[num]) {
+      groupedQuestions[num] = {
+        type: 'list',
+        name: `question-${num}`,
+        message: questions[`question-${num}`],
+        choices: [],
+      };
+    }
+
+    if (choice) {
+      groupedQuestions[num].choices.push(questions[key]);
+    }
+  });
+
+  return Object.values(groupedQuestions);
 }
 
 export const readFile = path =>
